@@ -15,7 +15,7 @@ makedepends="binutils xz sbsigntool"
 
 # Source
 source="
-	linux-image-6.10.0_6.10.0-ge716c6a940f0-78_amd64.deb
+	linux-image-6.10.0_6.10.0-g3f5d32f5d2c8-84_amd64.deb
 	MOK.cer
 	EFI/boot/bootx64.efi
 	EFI/boot/grub.cfg
@@ -29,20 +29,24 @@ source="
 package() {
 	# echo $startdir $srcdir
 	cd "$srcdir"
+    echo "decompressing linux-image-${pkgver}"
 	ar -x "linux-image-${pkgver}"*"_amd64.deb"
 	# ls -al $srcdir
 	mkdir -p $pkgdir/usr/share/kernel/$_flavor
 	echo "$pkgver" > $pkgdir/usr/share/kernel/$_flavor/kernel.release
 	# 解压data.tar.xz到pkgdir 排除 etc usr
+    echo "extracting data.tar.xz"
 	tar -xJf data.tar.xz -C "$pkgdir" --exclude etc --exclude usr
+    echo "extract done"
 	# grub-install --target=x86_64-efi --efi-directory=$pkgdir/boot --boot-directory=$pkgdir/boot
 	cp -r ${startdir}/EFI $pkgdir/boot/
 	cp ${startdir}/MOK.cer $pkgdir/boot/
+    echo "signing kernel"
 	sbsign --key ${startdir}/EFI/MOK.key --cert ${startdir}/EFI/MOK.crt --output $pkgdir/boot/vmlinuz-$pkgver $pkgdir/boot/vmlinuz-*
 }
 
 sha512sums="
-a5a8685d40c0dc9000ded1275836c4a4593ee63a9936b95f824ad1c3f1b55029938368edc5c28ddcb3ea6bd06a82515efa9dccc3a59289b20d0fcb27a1b6cd7f  linux-image-6.10.0_6.10.0-ge716c6a940f0-78_amd64.deb
+128a29f11c85f77053772a18058f1ce469d92dda8bfe2dd476e60bd97556e7aea97644c38acbccb6a1c1c9b595f667e134523cf7538c9d0a7f40ec88b161ff76  linux-image-6.10.0_6.10.0-g3f5d32f5d2c8-84_amd64.deb
 5fdeb5fc0c7fdc61d1a948abc69168966c2c7893a18f54e7583a564555b4a8a360fc24999580d9498ba55d7db63493468c3f4f4690a0f40a7105bb408da6d305  MOK.cer
 bb03f2c6f0c8bc7ca3f9e670ddc9fee05a29fc1708b86a4007498418e5aa17c33f79d383c38c8811a89a93e37bd737aa975db210ced4d64999cd904f84808aaa  bootx64.efi
 5dd565e4f68bce6f67c5d72e788eaf9e92fa8eb10e1a6e821abd8d2f36d9bcc38a9d860229c4554eedf5fddd05783d931351e5ea52e3c1d4af981bba5f470dad  grub.cfg
