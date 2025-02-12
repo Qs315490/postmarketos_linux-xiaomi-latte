@@ -39,6 +39,7 @@ prepare() {
 
 build() {
     unset LDFLAGS
+    make xiaomipad2_defconfig
     make O="$_outdir" ARCH="$_carch" CC="${CC:-gcc}" LOCALVERSION= \
             KBUILD_BUILD_VERSION="$((pkgrel + 1 ))-postmarketOS"
 }
