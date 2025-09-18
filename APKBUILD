@@ -2,26 +2,27 @@
 # Kernel config based on: arch/x86_64/configs/xiaomipad2_defconfig
 
 pkgname=linux-xiaomi-latte
-pkgver=6.10.0
+pkgver=6.12.0
 pkgrel=0
 pkgdesc="XiaoMi Pad2 kernel fork"
 arch="x86_64"
 _carch="x86_64"
 _flavor="xiaomi-latte"
-url="https://github.com/Qs315490/latte_kernel_6.10"
+url="https://github.com/Qs315490/linux_latte"
 license="GPL-2.0-only"
 options="!strip !check !tracedeps pmb:cross-native"
 makedepends="binutils xz sbsigntool"
 
 # Source
 source="
-	linux-image-6.10.0_6.10.0-g3f5d32f5d2c8-84_amd64.deb
+	linux-image-6.12.0_6.12.0-g017d258c6299-29_amd64.deb
 	MOK.cer
 	EFI/boot/bootx64.efi
 	EFI/boot/grub.cfg
 	EFI/boot/grubx64.efi
 	EFI/boot/mmx64.efi
 	EFI/boot/KeyTool.efi
+	EFI/boot/setup_var.efi
 	EFI/MOK.key
 	EFI/MOK.crt
 "
@@ -46,7 +47,7 @@ package() {
 }
 
 sha512sums="
-128a29f11c85f77053772a18058f1ce469d92dda8bfe2dd476e60bd97556e7aea97644c38acbccb6a1c1c9b595f667e134523cf7538c9d0a7f40ec88b161ff76  linux-image-6.10.0_6.10.0-g3f5d32f5d2c8-84_amd64.deb
+b719a8361650aa7ff0d3a2ff4e997ea8b728321ce0b541567f5a6372c1cc5db331e67dc1f8ae2c986270c89bc2855d2078a7c2ed9a0b9a972a44248c29a5a274  linux-image-6.12.0_6.12.0-g017d258c6299-29_amd64.deb
 5fdeb5fc0c7fdc61d1a948abc69168966c2c7893a18f54e7583a564555b4a8a360fc24999580d9498ba55d7db63493468c3f4f4690a0f40a7105bb408da6d305  MOK.cer
 bb03f2c6f0c8bc7ca3f9e670ddc9fee05a29fc1708b86a4007498418e5aa17c33f79d383c38c8811a89a93e37bd737aa975db210ced4d64999cd904f84808aaa  bootx64.efi
 5dd565e4f68bce6f67c5d72e788eaf9e92fa8eb10e1a6e821abd8d2f36d9bcc38a9d860229c4554eedf5fddd05783d931351e5ea52e3c1d4af981bba5f470dad  grub.cfg
